@@ -33,6 +33,7 @@ public class SocketForWeb
 	
 	public HttpResponse GetForHttp()
 	{
-		
+		HttpResponse HR = new HttpResponse();
+		return HR;
 	}
 }
