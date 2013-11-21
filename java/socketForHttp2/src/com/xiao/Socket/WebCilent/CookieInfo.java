@@ -94,13 +94,17 @@ public class CookieInfo
 		this.domain = domain;
 		this.secure = secure;
 	}
-	
+	/**
+	 * Initial the object
+	 * @param setCookieStr The param must be a Set-Cookie of http head which server send.
+	 */
 	public void set(String setCookieStr) throws AnalysisError
 	{
 		Condition[] conditions = this.turnToArrayString(setCookieStr);
 		if(conditions.length < 1 || conditions[0].kv.length < 2)
 			throw new AnalysisError("The input string ("+setCookieStr+") is not a standard set-cookie form (in http response)",
-					ConstValue.COOKIEINFO|ConstValue.SET_SETCOOKIESTR|ConstValue.FORMERROR|ConstValue.NONE);
+					ConstValue.CLASSNAME.COOKIEINFO|ConstValue.FUNCTIONNAME.SET_SETCOOKIESTR|
+					ConstValue.ERRORTYPE.FORMERROR|ConstValue.OTHERINFORMATION.NONE);
 		this.value = conditions[0].kv[1];
 		for(int i=0;i<conditions.length;++i)
 		{
@@ -141,7 +145,12 @@ public class CookieInfo
 	
 	//Other public function
 	
-	//Check is or not valid
+	/**
+	 * Check is or not valid
+	 * @param url what url you want to browser(if it's null ,we will not check)
+	 * @param checkDate if or not check the expires
+	 * @param secure(are you browser in ssl(Https)? If you don't want to check secure, you need set secure to true)
+	 */
 	public boolean isValid(String url,boolean checkDate,boolean secure)
 	{
 		if(checkDate && this.expires.before(new java.util.Date()))
