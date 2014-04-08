@@ -36,12 +36,21 @@ public class HttpSocket implements WebCilentSocket
 			}
 			else
 			{
-				this.bufWriter.write(req);
-				this.bufWriter.flush();
-				status = this.bufReader.readLine();
+				try
+				{
+					this.bufWriter.write(req);
+					this.bufWriter.flush();
+					status = this.bufReader.readLine();
+				}
+				catch (IOException e)
+				{
+					status = null;
+				}
 				if(status == null)
 				{
 					this.reconnect();
+					this.bufWriter.write(req);
+					this.bufWriter.flush();
 					status = this.bufReader.readLine();
 					if(status == null)
 						throw new WebCilentException("The http response from web has a unexpected end!\r\nFunction: protected void sendRequestAndAnalysisStatus(String req, HttpResponse HR, int port)"

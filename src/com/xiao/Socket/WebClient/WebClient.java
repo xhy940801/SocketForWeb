@@ -30,4 +30,5 @@ public interface WebClient
 	public String getEncodeCharset();
 	public int getPort();
 	public void setPort(int port);
+	
 }

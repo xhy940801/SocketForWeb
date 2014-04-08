@@ -39,7 +39,7 @@ public class CookieList
 		return (CookieInfo[])validCookies.toArray();
 	}
 	
-	CookieInfo[] getCookies()
+	public CookieInfo[] getCookies()
 	{
 		CookieInfo[] cookies = new CookieInfo[arrayList.size()];
 		this.arrayList.toArray(cookies);

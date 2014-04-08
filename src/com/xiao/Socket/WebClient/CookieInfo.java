@@ -106,7 +106,8 @@ public class CookieInfo
 					ConstValue.CLASSNAME.COOKIEINFO|ConstValue.FUNCTIONNAME.SET_SETCOOKIESTR|
 					ConstValue.ERRORTYPE.FORMERROR|ConstValue.OTHERINFORMATION.NONE);
 		this.value = conditions[0].kv[1];
-		for(int i=0;i<conditions.length;++i)
+		this.key = conditions[0].kv[0];
+		for(int i=1;i<conditions.length;++i)
 		{
 			switch(conditions[i].kv[0].toLowerCase())
 			{

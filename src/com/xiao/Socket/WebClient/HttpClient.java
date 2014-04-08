@@ -123,11 +123,6 @@ public class HttpClient implements WebClient
 		this.Decode(HR);
 		return HR;
 	}
-	
-	public HttpResponse doGet(String path, CookieList cookieList) throws AnalysisError, WebCilentException
-	{
-		return doGet(path, cookieList.getValidCookieArray(path, true, true));
-	}
 
 	@Override
 	public HttpResponse doGet(String path, CookieInfo[] CookieInfos) throws AnalysisError, WebCilentException

@@ -314,18 +314,18 @@ public class WebAnalysis
 	
 	protected void setDate(HttpResponse HR, String strDate) throws ParseException
 	{
-		HR.setDate(this.turnStrTodate(strDate));
+		if(this.weekEqual(strDate, "-1"))
+			HR.setExpires(new java.util.Date());
+		else
+			HR.setDate(this.turnStrTodate(strDate));
 	}
 	
 	protected void setExpires(HttpResponse HR, String strDate) throws ParseException
 	{
-		if(this.weekEqual(strDate, "-1"))
-			HR.setExpires(new java.util.Date());
-		else
-			HR.setExpires(this.turnStrTodate(strDate));
+		HR.setExpires(this.turnStrTodate(strDate));
 	}
 	
-	protected java.util.Date turnStrTodate(String strDate) throws ParseException
+	protected java.util.Date turnStrTodate(String strDate)
 	{
 		strDate = strDate.replaceFirst("^\\s*", "");
 		strDate = strDate.replaceAll("\\s+", " ");
@@ -339,7 +339,13 @@ public class WebAnalysis
 			simpleDateFormat = new java.text.SimpleDateFormat("E,d-M-y H:m:s z",Locale.US);
 		else
 			simpleDateFormat = new java.text.SimpleDateFormat("E,d MMM y H:m:s Z",Locale.US);
-		return simpleDateFormat.parse(strDate);
+		try
+		{
+			return simpleDateFormat.parse(strDate);
+		} catch (ParseException e)
+		{
+			return new java.util.Date();
+		}
 	}
 	
 	protected void setContentType(HttpResponse HR, String strContentType)
